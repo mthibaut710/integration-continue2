@@ -12,7 +12,6 @@ function isAuth(secret) {
 }
 
 function auth(secret) {
-  console.log(secret);
   if (secret) {
     if (isSecret(secret)) {
       if (isAuth(secret)) {
