@@ -31,7 +31,9 @@ install:
 
 install:
   stage: .pre
+         validate
   script:
     # define cache dir & use it npm!
     - npm ci --cache .npm --prefer-offline
+    - npm run lint
 
