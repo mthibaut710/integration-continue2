@@ -52,7 +52,7 @@ e2e-test:
         && $CI_COMMIT_TITLE !~ /^chore: release/
         && $CI_PIPELINE_SOURCE == "merge_request_event"'
   script:
-    - echo "Hello E2E !"
+    - echo "Hello E2E !!"
 
 release:	
   stage: release	
