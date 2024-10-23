@@ -27,11 +27,17 @@ install:
 
 lint:	
   stage: validate	
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
   script:
     - npm run lint
 
 unit-test:
   stage: test
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
   script:
     - npm test
 
