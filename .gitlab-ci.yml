@@ -22,18 +22,13 @@ install:
     # define cache dir & use it npm!
     - npm ci --cache .npm --prefer-offline
 
-  stages:
-    - validate
-    - test
-    - build
-    - release
-    - deploy
-
-install:
-  stage: .pre
-         validate
+lint:	
+  stage: validate	
   script:
-    # define cache dir & use it npm!
-    - npm ci --cache .npm --prefer-offline
     - npm run lint
+
+
+
+
+
 
