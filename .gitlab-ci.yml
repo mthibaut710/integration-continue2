@@ -40,7 +40,7 @@ only-canary:
   when: manual
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"	
-        $ENV_TARGET == "canary"
+        $ENV_TARGET == "canary"'
   script:
     - echo "Hello Only Canary !"
 
