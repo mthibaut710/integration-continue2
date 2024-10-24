@@ -40,10 +40,10 @@ only-canary:
   when: manual
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"	
-        && $CI_COMMIT_TAG == null	
-        && $CI_COMMIT_TITLE !~ /^chore: release/
+        $ENV_TARGET == "canary"
   script:
     - echo "Hello Only Canary !"
+
 
 unit-test:
   stage: test
