@@ -15,8 +15,3 @@ app.get("/auth/:secret", (req, res) => {
   console.log(secret);
   res.status(response.status).send(response.message);
 });
-
-app.listen(port, () => {
-  // eslint-disable-next-line no-console
-  console.log(`Example app listening on http://localhost:${port}`);
-});
