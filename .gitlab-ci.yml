@@ -57,3 +57,4 @@ job:
     script: echo "This job does NOT create double pipelines!"
     rules:
         - if: $CUSTOM_VARIABLE == "true" && $CI_PIPELINE_SOURCE == "merge_request_event"
+ 
