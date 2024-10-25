@@ -5,13 +5,14 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.get("/", (req, res) => {
-   res.send("Hello world");
+   res.send("Hello World!");
 });
 
 app.get("/auth/:secret", (req, res) => {
    const { secret } = req.params;
    const response = auth(secret);
 
+   console.log(secret);
    res.status(response.status).send(response.message);
 });
 
