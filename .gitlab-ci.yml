@@ -53,9 +53,14 @@ release:
     script:
         - npx --yes release-it --ci
 
-job:
+hello:
     stage: test
     script: echo "Hello E2E !"
     rules:
-        - if: $CUSTOM_VARIABLE == "true" && $CI_PIPELINE_SOURCE == "merge_request_event"
-#test commit for merge2 because test is not here w us anymore
+        - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+
+canary:
+    stage: validate
+    script: echo "Hello Only Canary !"
+    rules:
+        - if: '$CI_ENV_TARGET == "canary"'
