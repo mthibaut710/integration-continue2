@@ -37,13 +37,11 @@ lint:
 
 only-canary:
   stage: validate
-  # when: manual
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"	
         && $ENV_TARGET == "canary"'
   script:
-    - echo "Hello Only Canary !!"
-
+    - echo "Hello Only Canary !"
 
 unit-test:
   stage: test
@@ -56,13 +54,23 @@ unit-test:
 
 e2e-test:
   stage: test
+  needs: integration-test
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"	
         && $CI_COMMIT_TAG == null	
         && $CI_COMMIT_TITLE !~ /^chore: release/
         && $CI_PIPELINE_SOURCE == "merge_request_event"'
   script:
-    - echo "Hello E2E !!"
+    - echo "Hello E2E !"
+
+integration-test:
+  stage: test
+  needs: unit-test
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"	
+        && 
+  script:
+    - echo "Hello Integration !"
 
 release:	
   stage: release	
