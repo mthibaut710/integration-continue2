@@ -18,5 +18,4 @@ stages:
 install:
    stage: .pre
    script:
-      # define cache dir & use it npm!sasasasasasass
       - npm ci --cache .npm --prefer-offline
