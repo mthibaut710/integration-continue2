@@ -58,4 +58,4 @@ job:
     script: echo "Hello E2E !"
     rules:
         - if: $CUSTOM_VARIABLE == "true" && $CI_PIPELINE_SOURCE == "merge_request_event"
-#test commit for merge
+#test commit for merge2 because test is not here w us anymore
