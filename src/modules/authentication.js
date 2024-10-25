@@ -1,5 +1,5 @@
 const PREFIX = "secret-";
-const dotenv = require("dotenv").config();
+require("dotenv").config();
 
 function isSecret(secret) {
    return secret.startsWith(PREFIX);
