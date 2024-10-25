@@ -63,4 +63,4 @@ canary:
     stage: validate
     script: echo "Hello Only Canary !"
     rules:
-        - if: '$CI_ENV_TARGET == "canary"'
+        - if: '$ENV_TARGET == "canary"'
