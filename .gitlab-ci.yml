@@ -53,14 +53,22 @@ release:
     script:
         - npx --yes release-it --ci
 
-hello:
+e2e-test:
     stage: test
     script: echo "Hello E2E !"
     rules:
         - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    need:
+        - job: "integration-test"
 
 canary:
     stage: validate
     script: echo "Hello Only Canary !"
     rules:
         - if: '$ENV_TARGET == "canary"'
+
+integration-test:
+    stage: test
+    script: echo "Hello Integration !"
+    need:
+        - job: "unit-test"
