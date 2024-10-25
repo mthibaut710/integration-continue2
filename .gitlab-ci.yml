@@ -45,7 +45,7 @@ unit-test:
 integration-test:
    stage: test
    needs:
-      - ./unit-test
+      - unit-test
    script:
       - echo "Hello Integration !"
    rules:
