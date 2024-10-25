@@ -9,14 +9,19 @@ cache:
         - node_modules/
         - .npm/
 stages:
-  - validate
-  - test
-  - build
-  - release
-  - deploy
+    - validate
+    - test
+    - build
+    - release
+    - deploy
 
 install:
-  stage: .pre
-  script:
-    # define cache dir & use it npm!
-    - npm ci --cache .npm --prefer-offline
+    stage: .pre
+    script:
+        # define cache dir & use it npm!
+        - npm ci --cache .npm --prefer-offline
+
+lint:
+    stage: validate
+    script:
+        - npm run lint
