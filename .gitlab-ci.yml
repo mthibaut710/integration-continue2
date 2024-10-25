@@ -1,5 +1,4 @@
 image: node:latest
-
 cache:
   key:
     files:
@@ -14,8 +13,7 @@ stages:
   - build
   - release
   - deploy
-
 install:
-  stage: validate
+  stage: .pre
   script:
     - npm ci --cache .npm --prefer-offline
