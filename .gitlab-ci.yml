@@ -58,7 +58,7 @@ e2e-test:
     script: echo "Hello E2E !"
     rules:
         - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-    need:
+    needs:
         - job: "integration-test"
 
 canary:
@@ -70,5 +70,5 @@ canary:
 integration-test:
     stage: test
     script: echo "Hello Integration !"
-    need:
+    needs:
         - job: "unit-test"
