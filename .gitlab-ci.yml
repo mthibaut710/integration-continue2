@@ -42,7 +42,7 @@ only-canary:
     - if: '$CI_COMMIT_BRANCH == "main"	
         && $ENV_TARGET == "canary"'
   script:
-    - echo "Hello Only Canary !"
+    - echo "Hello Only Canary !!"
 
 
 unit-test:
