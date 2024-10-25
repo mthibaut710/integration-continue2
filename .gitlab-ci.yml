@@ -23,13 +23,16 @@ lint:
     script:
         - npm run lint
     rules:
-        - if: $CI_PIPELINE_SOURCE == "push"
+        - if: $CI_COMMIT_TAG == null && $CI_COMMIT_TITLE !~ /^chore: release/'
+          when: never
 
 unit-test:
     script:
         - npm test
     rules:
-        - if: $CI_PIPELINE_SOURCE == "push"
+        - if: $CI_COMMIT_TAG == null && $CI_COMMIT_TITLE !~ /^chore: release/'
+          when: never
+          
 
 release:
     stage: release
@@ -48,4 +51,8 @@ release:
     script:
         - npx --yes release-it --ci
 
-        
+job:
+    stage: release
+    script: echo "This job does NOT create double pipelines!"
+    rules:
+        - if: $CUSTOM_VARIABLE == "true" && $CI_PIPELINE_SOURCE == "merge_request_event"
