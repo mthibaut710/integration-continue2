@@ -67,8 +67,7 @@ integration-test:
   stage: test
   needs: unit-test
   rules:
-    - if: '$CI_COMMIT_BRANCH == "main"	
-        && 
+    - if: '$CI_COMMIT_BRANCH == "main"' 
   script:
     - echo "Hello Integration !"
 
