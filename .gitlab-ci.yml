@@ -37,6 +37,13 @@ unit-test:
     - if: 
         '$CI_COMMIT_TAG == null
         && $CI_COMMIT_TITLE !~ /^chore: release/'
+        
+e2e-test:
+  stage: test
+  script:
+    echo "Hello E2E!"
+  rules:
+    - if: '$CI_COMMIT_TAG == "merge_request_event"
 
 release:
   stage: release
