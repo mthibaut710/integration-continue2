@@ -16,6 +16,6 @@ stages:
   - deploy
 
 install:
-  stage: .pre
+  stage: validate
   script:
     - npm ci --cache .npm --prefer-offline
