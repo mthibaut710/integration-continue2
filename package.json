@@ -1,7 +1,7 @@
 {
   "name": "ci-cd",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
@@ -27,8 +27,8 @@
     "gitlab": {
       "release": true
     },
-    "git":{
-      "commitMessage":"chore: release v${version}"
+    "git": {
+      "commitMessage": "chore: release v${version}"
     }
   }
 }
