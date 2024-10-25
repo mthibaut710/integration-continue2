@@ -9,8 +9,6 @@ cache:
         - node_modules/
         - .npm/
 stages:
-    - validate
-    - test
     - build
     - release
     - deploy
@@ -22,14 +20,16 @@ install:
         - npm ci --cache .npm --prefer-offline
 
 lint:
-    stage: validate
     script:
         - npm run lint
+    rules:
+        - if: $CI_PIPELINE_SOURCE == "push"
 
 unit-test:
-    stage: test
     script:
         - npm test
+    rules:
+        - if: $CI_PIPELINE_SOURCE == "push"
 
 release:
     stage: release
@@ -47,3 +47,4 @@ release:
         - git pull origin $CI_COMMIT_BRANCH --rebase
     script:
         - npx --yes release-it --ci
+
