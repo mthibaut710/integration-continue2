@@ -48,3 +48,4 @@ release:
     - git pull origin $CI_COMMIT_BRANCH --rebase
   script:
     - npx --yes release-it --ci
+    
