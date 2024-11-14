@@ -27,7 +27,7 @@ lint:
   script:
     - npm run lint
   rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_PIPELINE_SOURCE == "push"
       when: never
       allow_failure: true
 
@@ -36,7 +36,7 @@ unit-test:
   script:
     - npm test
   rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_PIPELINE_SOURCE == "push"
       when: never
       allow_failure: true
 
