@@ -41,12 +41,12 @@ unit-test:
       allow_failure: true
 
 job:
-  stage: e2e-test
+  stage: test
   script: echo "Hello E2E !"
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: always
-      
+
 release:
   stage: release
   when: manual
