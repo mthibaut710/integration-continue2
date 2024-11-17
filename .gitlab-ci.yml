@@ -9,6 +9,7 @@ cache:
     - node_modules/
     - .npm/
 stages:
+  - install
   - validate
   - test
   - build
@@ -16,7 +17,7 @@ stages:
   - deploy
 
 install:
-  stage: .pre
+  stage: install
   script:
     # define cache dir & use it npm!
     - npm ci --cache .npm --prefer-offline
