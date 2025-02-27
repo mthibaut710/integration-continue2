@@ -27,8 +27,6 @@ lint:
   script:
     - npm run lint
 
-// .gitlab-ci.yml
-// ...
 unit-test:
   stage: test
   script:
