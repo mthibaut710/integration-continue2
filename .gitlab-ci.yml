@@ -1,0 +1,25 @@
+# .gitlab-ci.yml file
+
+image: node:latest
+cache:
+  key:
+    files:
+      - package-lock.json
+  paths:
+    - node_modules/
+    - .npm/
+
+# Définition des stages de la pipeline
+stages:
+  - validate
+  - test
+  - build
+  - release
+  - deploy
+
+# Installation des dépendances (étape préliminaire)
+install:
+  stage: .pre  # Étape spéciale exécutée avant tout le reste
+  script:
+    # Installer les dépendances en utilisant le cache npm
+    - npm ci --cache .npm --prefer-offline
