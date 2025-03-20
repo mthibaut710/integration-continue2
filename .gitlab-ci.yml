@@ -38,6 +38,15 @@ unit-test:
   script:
     - npm test
 
+e2e-test:
+  stage: test
+  rules:
+    - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"
+        && $CI_COMMIT_TAG == null
+        && $CI_COMMIT_TITLE !~ /^chore: release/'
+  script:
+    - echo "Hello E2E !"
+
 release:
   stage: release
   when: manual
