@@ -9,6 +9,15 @@ cache:
     - node_modules/
     - .npm/
 
+# Définition des ancres (anchors)
+.default_rules: &default_rules
+  rules:
+    - if: '$CI_COMMIT_TAG == null && $CI_COMMIT_TITLE !~ /^chore: release/'
+
+.needs_unit_test: &needs_unit_test
+  needs:
+    - unit-test
+
 # Définition des stages de la pipeline
 stages:
   - validate
@@ -32,27 +41,32 @@ only-canary:
   rules:
     - if: '$ENV_TARGET == "canary"'
 
-# Étape de validation (ESLint)
+# Jobs avec les ancres
 lint:
   stage: validate
   script:
     - npm run lint
-  rules:
-    - if: '$CI_COMMIT_TAG == null && $CI_COMMIT_TITLE !~ /^chore: release/'
+  <<: *default_rules
 
-# Étape de tests unitaires
 unit-test:
   stage: test
   script:
     - npm test
-  rules:
-    - if: '$CI_COMMIT_TAG == null && $CI_COMMIT_TITLE !~ /^chore: release/'
+  <<: *default_rules
+
+integration-test:
+  stage: test
+  script:
+    - echo "Hello Integration !"
+  <<: *default_rules
+  <<: *needs_unit_test
 
 # 🚀 Nouveau Job E2E-Test (uniquement dans les Merge Requests)
 e2e-test:
   stage: test
   script:
     - echo "Hello E2E !"
+  <<: *needs_unit_test
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
 
