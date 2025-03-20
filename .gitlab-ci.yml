@@ -1,6 +1,6 @@
 # .gitlab-ci.yml file
 
-image: node-alpine:latest
+image: node:alpine
 cache:
   key:
     files:
