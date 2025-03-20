@@ -14,7 +14,7 @@ app.get('/auth/:secret', (req, res) => {
 
   res.status(response.status).send(response.message);
 });
- 
+
 app.listen(port, () => {
-  console.log(`Example app listening on http://localhost:${port}`);
+  //console.log(`Example app listening on http://localhost:${port}`);
 });
