@@ -1,4 +1,5 @@
 # .gitlab-ci.yml file
+# test
 
 image: node:latest
 cache:
