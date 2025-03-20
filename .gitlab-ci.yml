@@ -1,7 +1,6 @@
 # .gitlab-ci.yml file
-# test
 
-image: node:latest
+image: node-alpine:latest
 cache:
   key:
     files:
@@ -25,11 +24,17 @@ install:
 
 lint:
   stage: validate
+  rules:
+    - if: '$CI_COMMIT_TAG == null
+        && $CI_COMMIT_TITLE !~ /^chore: release/'
   script:
     - npm run lint
 
 unit-test:
   stage: test
+  rules:
+    - if: '$CI_COMMIT_TAG == null
+        && $CI_COMMIT_TITLE !~ /^chore: release/'
   script:
     - npm test
 
