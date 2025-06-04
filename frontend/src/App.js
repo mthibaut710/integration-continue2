@@ -15,7 +15,6 @@ function App() {
       const data = await response.json();
       setHealth(data);
     } catch (err) {
-      console.error("Health check failed:", err);
       setHealth({ status: "error", message: err.message });
     }
   };
@@ -33,7 +32,6 @@ function App() {
       const data = await response.json();
       setUsers(data);
     } catch (err) {
-      console.error("Failed to fetch users:", err);
       setError(`Failed to connect to backend: ${err.message}`);
     } finally {
       setLoading(false);
@@ -43,6 +41,7 @@ function App() {
   useEffect(() => {
     fetchHealth();
     fetchUsers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleRefresh = () => {
