@@ -19,8 +19,7 @@ stages:
 install:
   stage: .pre
   rules:
-    - if: '$CI_COMMIT_BRANCH == "main"
-        && $CI_COMMIT_TAG == null
+    - if: '$CI_COMMIT_TAG == null
         && $CI_COMMIT_TITLE !~ /^chore: release/'
   script:
     # define cache dir & use it npm!
@@ -28,17 +27,24 @@ install:
 lint:
   stage: validate
   rules:
-    - if: '$CI_COMMIT_BRANCH == "main"
-        && $CI_COMMIT_TAG == null
+    - if: '$CI_COMMIT_TAG == null
         && $CI_COMMIT_TITLE !~ /^chore: release/'
   script:
     - npm run lint
 
+only-canary:
+  stage: validate
+  rules:
+    - if: '$ENV_TARGET == "canary"'
+  script:
+    - echo "Hello Only Canary !"
+
+
+
 unit-test:
   stage: test
   rules:
-    - if: '$CI_COMMIT_BRANCH == "main"
-        && $CI_COMMIT_TAG == null
+    - if: '$CI_COMMIT_TAG == null
         && $CI_COMMIT_TITLE !~ /^chore: release/'
   script:
     - npm test
