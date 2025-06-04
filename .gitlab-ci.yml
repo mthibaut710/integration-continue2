@@ -78,3 +78,37 @@ e2e-test:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
   script:
     - echo "Hello E2E !"
+
+# If your language needs to build you can create another build job before
+
+# Add docker job to build the image
+# Only for testing purpose, you can add a docker run + command to check health
+# Gitlab has a lot of variables to use in the pipeline
+# Here we are using $CI_REGISTRY_IMAGE and $CI_COMMIT_SHORT_SHA
+build-image:
+  stage: build
+  image: docker:20.10.16
+  services:
+    - docker:20.10.16-dind
+  variables:
+    IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+  script:
+    - docker image build -t $IMAGE_TAG .
+
+deploy-image:
+  needs:
+    - release
+  image: docker:20.10.16
+  stage: deploy
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main" && $CI_COMMIT_TAG == null && $CI_COMMIT_TITLE !~ /^chore: release/'
+  services:
+    - docker:20.10.16-dind
+  variables:
+    IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker image build --platform=linux/amd64 -t $IMAGE_TAG -t $CI_REGISTRY_IMAGE:latest .
+    - docker push $CI_REGISTRY_IMAGE --all-tags
+  environment: production
+
