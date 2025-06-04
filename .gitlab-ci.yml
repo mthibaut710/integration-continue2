@@ -49,6 +49,12 @@ unit-test:
   script:
     - npm test
 
+integration-test:
+  stage: test
+  needs: ["unit-test"]
+  script:
+    - echo "Hello Integration !"
+
 release:
   stage: release
   when: manual
@@ -68,6 +74,7 @@ release:
 
 e2e-test:
   stage: test
+  needs: ["integration-test"]
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
   script:
