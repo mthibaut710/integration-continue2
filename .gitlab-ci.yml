@@ -50,6 +50,7 @@ unit-test:
 
 integration-test:
   stage: test
+  extends: .notInRelease
   needs: ["unit-test"]
   script:
     - echo "Hello Integration !"
