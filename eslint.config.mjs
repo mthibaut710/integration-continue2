@@ -1,17 +1,15 @@
 // eslint.config.mjs
 import globals from "globals";
-import pluginJs from "@eslint/js";
 
 export default [
   {
-    ignores: ["**/*.test.js"],
     files: ["**/*.js"],
-    languageOptions: { sourceType: "commonjs" },
-    globals: { ...globals.node }, 
-  },
-  { languageOptions: { globals: globals.node } },
-  pluginJs.configs.recommended,
-  {
+    ignores: ["**/*.test.js"],
+    languageOptions: {
+      ecmaVersion: "latest",
+      sourceType: "commonjs",
+      globals: { ...globals.node }, // enables process, __dirname, etc.
+    },
     rules: {
       "no-unused-vars": "error",
       "no-undef": "error",
