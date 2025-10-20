@@ -29,7 +29,6 @@ unit-test:
   script:
     - npm test
 
-	
 release:
   stage: release
   when: manual
