@@ -47,6 +47,19 @@ e2e-test:
   script:
     - echo "Hello E2E !"
 
+integration-test:
+  stage: test
+  needs: [e2e-test]
+  script:
+    - echo "Hello Integration !"
+
+only-canary:
+  stage: validate
+  rules:
+    - if: '$ENV_TARGET == "canary"'
+  script:
+    - echo "Hello Only Canary !"
+
 release:
   stage: release
   when: manual
