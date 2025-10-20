@@ -47,18 +47,18 @@ e2e-test:
   script:
     - echo "Hello E2E !"
 
-integration-test:
-  stage: test
-  needs: [e2e-test]
-  script:
-    - echo "Hello Integration !"
-
 only-canary:
   stage: validate
   rules:
     - if: '$ENV_TARGET == "canary"'
   script:
     - echo "Hello Only Canary !"
+
+integration-test:
+  stage: test
+  needs: [only-canary]
+  script:
+    - echo "Hello Integration !"
 
 release:
   stage: release
