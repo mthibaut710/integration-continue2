@@ -14,8 +14,7 @@ stages:
   - deploy
 
 install:
-  # stage: .pre
-  stage: install
+  stage: .pre
   script:
     # define cache dir & use it npm!
     - npm ci --cache .npm --prefer-offline
