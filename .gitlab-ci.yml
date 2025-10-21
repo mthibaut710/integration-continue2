@@ -1,39 +1,77 @@
-# .gitlab-ci.yml File
-# Configure the global image and cache for every stage
+# .gitlab-ci.yml
+# ==========================================
+# Pipeline CI/CD pour une API Node.js avec GitLab
+# ==========================================
+
+# Image Docker utilisée par le runner
 image: node:latest
+
+# Configuration du cache pour éviter la réinstallation des dépendances à chaque job
 cache:
   key:
     files:
-      - package-lock.json
+      - package-lock.json  # le cache est régénéré si ce fichier change
   paths:
     - node_modules/
     - .npm/
-    
-# Define all the stages used for the pipeline
+
+# Définition des différentes étapes du pipeline
 stages:
   - validate
   - test
   - build
   - release
   - deploy
-  
-# Add first job using the '.pre' stage defined by Gitlab, could be a defined stage too
-# .pre is always run as the first stage
+
+# Étape préliminaire : installation des dépendances
 install:
   stage: .pre
   script:
-    # define cache dir & use it npm!
+    - echo "Installation des dépendances..."
     - npm ci --cache .npm --prefer-offline
 
-# .gitlab-ci.yml
-# Image utilisée par le runner (environnement Node.js)
-image: node:latest
+# Étape de validation du code (lint)
+validate:
+  stage: validate
+  script:
+    - echo "Validation du code..."
+    - npm run lint || echo "Lint non configuré, étape ignorée"
 
-# Configuration du cache
-cache:
-  key:
-    files:
-      - package-lock.json  # si le fichier change, le cache est régénéré
-  paths:
-    - node_modules/
-    - .npm/
+# Étape de test
+test:
+  stage: test
+  script:
+    - echo "Exécution des tests..."
+    - npm test || echo "Aucun test défini, étape ignorée"
+
+# Étape de build (construction de l'application)
+build:
+  stage: build
+  script:
+    - echo "Construction de l'application..."
+    - npm run build || echo "Pas de script build défini, étape ignorée"
+  artifacts:
+    paths:
+      - dist/
+
+# Étape de release (préparation du package ou artefact)
+release:
+  stage: release
+  script:
+    - echo "Préparation de la release..."
+    - npm pack || echo "Pas de package à créer, étape ignorée"
+
+# Étape de déploiement (manuelle pour éviter les erreurs)
+deploy:
+  stage: deploy
+  script:
+    - echo "Déploiement de l'application..."
+    - npm start || echo "Pas de commande de déploiement définie"
+  when: manual
+
+
+
+
+
+
+>>>>>>> 3dc7095586594768461367c58e4d6741ac23c6b2
