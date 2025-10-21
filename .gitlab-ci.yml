@@ -25,3 +25,15 @@ install:
     # define cache dir & use it npm!
     - npm ci --cache .npm --prefer-offline
 
+# .gitlab-ci.yml
+# Image utilisée par le runner (environnement Node.js)
+image: node:latest
+
+# Configuration du cache
+cache:
+  key:
+    files:
+      - package-lock.json  # si le fichier change, le cache est régénéré
+  paths:
+    - node_modules/
+    - .npm/
