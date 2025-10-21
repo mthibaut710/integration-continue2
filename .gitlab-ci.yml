@@ -6,16 +6,16 @@
 # Image Docker utilisée par le runner
 image: node:latest
 
-# Configuration du cache pour éviter la réinstallation des dépendances à chaque job
+# Configuration du cache pour accélérer le pipeline
 cache:
   key:
     files:
-      - package-lock.json  # le cache est régénéré si ce fichier change
+      - package-lock.json  # Le cache se régénère si ce fichier change
   paths:
     - node_modules/
     - .npm/
 
-# Définition des différentes étapes du pipeline
+# Définition des stages du pipeline
 stages:
   - validate
   - test
@@ -23,28 +23,37 @@ stages:
   - release
   - deploy
 
-# Étape préliminaire : installation des dépendances
+# ------------------------------------------
+# Premier job : installation des dépendances
+# Stage spécial .pre exécuté en premier
+# ------------------------------------------
 install:
   stage: .pre
   script:
     - echo "Installation des dépendances..."
     - npm ci --cache .npm --prefer-offline
 
+# ------------------------------------------
 # Étape de validation du code (lint)
+# ------------------------------------------
 validate:
   stage: validate
   script:
     - echo "Validation du code..."
     - npm run lint || echo "Lint non configuré, étape ignorée"
 
-# Étape de test
+# ------------------------------------------
+# Étape de tests
+# ------------------------------------------
 test:
   stage: test
   script:
     - echo "Exécution des tests..."
     - npm test || echo "Aucun test défini, étape ignorée"
 
+# ------------------------------------------
 # Étape de build (construction de l'application)
+# ------------------------------------------
 build:
   stage: build
   script:
@@ -54,24 +63,21 @@ build:
     paths:
       - dist/
 
-# Étape de release (préparation du package ou artefact)
+# ------------------------------------------
+# Étape de release (préparation du package)
+# ------------------------------------------
 release:
   stage: release
   script:
     - echo "Préparation de la release..."
     - npm pack || echo "Pas de package à créer, étape ignorée"
 
-# Étape de déploiement (manuelle pour éviter les erreurs)
+# ------------------------------------------
+# Étape de déploiement (manuelle)
+# ------------------------------------------
 deploy:
   stage: deploy
   script:
     - echo "Déploiement de l'application..."
     - npm start || echo "Pas de commande de déploiement définie"
   when: manual
-
-
-
-
-
-
->>>>>>> 3dc7095586594768461367c58e4d6741ac23c6b2
