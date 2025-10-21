@@ -1,0 +1,27 @@
+# .gitlab-ci.yml File
+# Configure the global image and cache for every stage
+image: node:latest
+cache:
+  key:
+    files:
+      - package-lock.json
+  paths:
+    - node_modules/
+    - .npm/
+    
+# Define all the stages used for the pipeline
+stages:
+  - validate
+  - test
+  - build
+  - release
+  - deploy
+  
+# Add first job using the '.pre' stage defined by Gitlab, could be a defined stage too
+# .pre is always run as the first stage
+install:
+  stage: .pre
+  script:
+    # define cache dir & use it npm!
+    - npm ci --cache .npm --prefer-offline
+
